@@ -8,5 +8,4 @@ defmodule TeamBudgedGraphql.Types.User do
     field :email, :string
     field :role, :string
   end
-
 end

@@ -3,7 +3,7 @@ defmodule TeamBudgedGraphql.Schema do
 
   alias TeamBudgedGraphql.Resolvers
 
-  import_types TeamBudgedGraphql.Types
+  import_types(TeamBudgedGraphql.Types)
 
   query do
     @desc "Get list of all users"

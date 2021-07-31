@@ -10,9 +10,10 @@ defmodule TeamBudgedWeb.Router do
     forward "/graphql", Absinthe.Plug, schema: TeamBudgedGraphql.Schema, json_code: Jason
 
     if Mix.env() == :dev do
-      forward "/graphiql", Absinthe.Plug.GraphiQL, schema: TeamBudgedGraphql.Schema, json_code: Jason
+      forward "/graphiql", Absinthe.Plug.GraphiQL,
+        schema: TeamBudgedGraphql.Schema,
+        json_code: Jason
     end
-
   end
 
   # Enables LiveDashboard only for development
