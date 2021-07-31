@@ -5,8 +5,14 @@ defmodule TeamBudgedWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", TeamBudgedWeb do
+  scope "/" do
     pipe_through :api
+    forward "/graphql", Absinthe.Plug, schema: TeamBudgedGraphql.Schema, json_code: Jason
+
+    if Mix.env() == :dev do
+      forward "/graphiql", Absinthe.Plug.GraphiQL, schema: TeamBudgedGraphql.Schema, json_code: Jason
+    end
+
   end
 
   # Enables LiveDashboard only for development
