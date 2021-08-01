@@ -19,7 +19,7 @@ defmodule TeamBudgedGraphql.Schema do
 
   mutation do
     @desc "Create a new user"
-    field :create_user, :user do
+    field :create_user, :user_payload do
       arg :user, non_null(:user_input)
       resolve(&Resolvers.UserResolver.create_user/3)
       middleware(&build_payload/2)
