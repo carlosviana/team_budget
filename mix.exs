@@ -56,7 +56,9 @@ defmodule TeamBudged.MixProject do
       {:absinthe_relay, "~> 1.5", override: true},
       {:absinthe_plug, "~> 1.5", override: true},
       {:absinthe_phoenix, "~> 2.0"},
-      {:absinthe_error_payload, "~> 1.1"}
+      {:absinthe_error_payload, "~> 1.1"},
+      {:guardian, "~> 2.0"},
+      {:argon2_elixir, "~> 2.0"}
     ]
   end
 

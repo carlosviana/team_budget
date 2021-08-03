@@ -11,6 +11,11 @@ config :team_budged,
   ecto_repos: [TeamBudged.Repo],
   generators: [binary_id: true]
 
+# Configure Guardian
+config :team_budged, TeamBudged.Accounts.Core.Guardian,
+  issuer: "team_budged",
+  secret_key: "WLU66vfit2dX1ESY1DCILq+ee36uqQs8Hkt/8/2NIkoiLZg6I5aO617okgadfYJ5"
+
 # Configures the endpoint
 config :team_budged, TeamBudgedWeb.Endpoint,
   url: [host: "localhost"],

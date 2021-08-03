@@ -3,6 +3,7 @@ defmodule TeamBudgedWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug TeamBudgedGraphql.Plugs.Context
   end
 
   scope "/" do

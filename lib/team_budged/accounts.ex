@@ -1,14 +1,11 @@
 defmodule TeamBudged.Accounts do
-  alias TeamBudged.Accounts.User
-  alias TeamBudged.Repo
+  alias TeamBudged.Accounts.Core.UserRepo
 
   def list_users() do
-    Repo.all(User)
+    UserRepo.list_users()
   end
 
   def create_user(user) do
-    user
-    |> User.changeset()
-    |> Repo.insert()
+    UserRepo.create_user(user)
   end
 end

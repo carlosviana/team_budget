@@ -13,7 +13,8 @@ defmodule TeamBudgedGraphql.Types.User do
     field :first_name, non_null(:string)
     field :last_name, non_null(:string)
     field :email, non_null(:string)
-    field :password_hash, non_null(:string)
+    field :password, non_null(:string)
+    field :password_confirmation, non_null(:string)
     field :role, :string
   end
 end
