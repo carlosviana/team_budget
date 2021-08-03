@@ -7,7 +7,10 @@ defmodule TeamBudged.Repo.Migrations.CreateTeams do
       add :name, :string, null: false
       add :slug, :string, null: false
       add :description, :string
-      add :user_id, references(:users, on_delete: :delete_all, on_update: :update_all, type: :binary_id), null: false
+
+      add :user_id,
+          references(:users, on_delete: :delete_all, on_update: :update_all, type: :binary_id),
+          null: false
 
       timestamps()
     end

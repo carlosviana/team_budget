@@ -1,8 +1,9 @@
 defmodule TeamBudgedGraphql.Middleware.Authorize do
-  @behavior Absinthe.Middleware
+  @behaviour Absinthe.Middleware
 
   def call(resolution, role) do
-    with %{current_user: current_user} <- resolution.context, true <- current_role?(current_user, role) do
+    with %{current_user: current_user} <- resolution.context,
+         true <- current_role?(current_user, role) do
       resolution
     else
       _ ->
@@ -15,5 +16,4 @@ defmodule TeamBudgedGraphql.Middleware.Authorize do
   defp current_role?(%{role: "user"}, :user), do: true
   defp current_role?(%{role: role}, role), do: true
   defp current_role?(_, _), do: false
-
 end
