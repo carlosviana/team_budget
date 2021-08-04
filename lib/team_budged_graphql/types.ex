@@ -3,5 +3,6 @@ defmodule TeamBudgedGraphql.Types do
   alias TeamBudgedGraphql.Types
 
   import_types(Types.Session)
+  import_types(Types.Team)
   import_types(Types.User)
 end

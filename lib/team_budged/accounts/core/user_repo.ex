@@ -1,5 +1,5 @@
 defmodule TeamBudged.Accounts.Core.UserRepo do
-  alias TeamBudged.Accounts.User
+  alias TeamBudged.Accounts.Data.User
   alias TeamBudged.Repo
 
   def list_users() do

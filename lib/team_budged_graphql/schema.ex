@@ -1,6 +1,7 @@
 defmodule TeamBudgedGraphql.Schema do
   use Absinthe.Schema
 
+  alias TeamBudged.Teams.Data.Team
   alias TeamBudgedGraphql.Resolvers
   alias TeamBudgedGraphql.Middleware
 
@@ -17,6 +18,11 @@ defmodule TeamBudgedGraphql.Schema do
     field :list_users, list_of(:user) do
       middleware(Middleware.Authorize, :user)
       resolve(&Resolvers.UserResolver.list_users/3)
+    end
+    @desc "Get list of all teams from an user"
+    field :list_teams, list_of(:team) do
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.TeamResolver.list_teams/3)
     end
   end
 
@@ -35,4 +41,12 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(&build_payload/2)
     end
   end
+
+  def context(context) do
+    loader = Dataloader.new()
+    |> Dataloader.add_source(Team, Team.data())
+    Map.put(context, :loader, loader)
+  end
+
+  def plugins, do: [Absinthe.Middleware.Dataloader | Absinthe.Plugin.defaults()]
 end

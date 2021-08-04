@@ -1,6 +1,8 @@
-defmodule TeamBudged.Accounts.User do
+defmodule TeamBudged.Accounts.Data.User do
   use Ecto.Schema
   import Ecto.Changeset
+
+  alias TeamBudged.Teams.Data.Team
 
   @fields ~w[email first_name last_name role password password_confirmation]a
 
@@ -14,6 +16,8 @@ defmodule TeamBudged.Accounts.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :role, :string, default: "user"
+
+    has_many :teams, Team
 
     timestamps()
   end
@@ -33,6 +37,7 @@ defmodule TeamBudged.Accounts.User do
     |> validate_length(:password, min: 6, max: 12)
     |> validate_confirmation(:password)
     |> hash_password()
+    |> cast_assoc(:teams, with: &Team.changeset/2)
   end
 
   def hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do

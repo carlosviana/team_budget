@@ -7,6 +7,7 @@ defmodule TeamBudgedGraphql.Types.User do
     field :last_name, :string
     field :email, :string
     field :role, :string
+    field :teams, list_of(:team)
   end
 
   input_object :user_input do
@@ -16,5 +17,6 @@ defmodule TeamBudgedGraphql.Types.User do
     field :password, non_null(:string)
     field :password_confirmation, non_null(:string)
     field :role, :string
+    field :teams, list_of(:team_input)
   end
 end
