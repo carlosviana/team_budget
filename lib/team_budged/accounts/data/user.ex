@@ -3,6 +3,7 @@ defmodule TeamBudged.Accounts.Data.User do
   import Ecto.Changeset
 
   alias TeamBudged.Teams.Data.Team
+  alias TeamBudged.Members.Member
 
   @fields ~w[email first_name last_name role password password_confirmation]a
 
@@ -18,6 +19,7 @@ defmodule TeamBudged.Accounts.Data.User do
     field :role, :string, default: "user"
 
     has_many :teams, Team
+    many_to_many :members, Team, join_through: Member, on_replace: :delete
 
     timestamps()
   end

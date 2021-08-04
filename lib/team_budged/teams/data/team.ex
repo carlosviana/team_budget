@@ -4,6 +4,7 @@ defmodule TeamBudged.Teams.Data.Team do
 
   alias TeamBudged.Accounts.Data.User
   alias TeamBudged.Utils.CreateSlug
+  alias TeamBudged.Members.Member
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -11,7 +12,9 @@ defmodule TeamBudged.Teams.Data.Team do
     field :description, :string
     field :name, :string
     field :slug, :string
+
     belongs_to :user, User
+    many_to_many :members, User, join_through: Member, on_replace: :delete
 
     timestamps()
   end
