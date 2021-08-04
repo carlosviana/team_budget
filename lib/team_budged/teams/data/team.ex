@@ -33,5 +33,4 @@ defmodule TeamBudged.Teams.Data.Team do
     |> unique_constraint(:name)
     |> unique_constraint(:slug)
   end
-
 end

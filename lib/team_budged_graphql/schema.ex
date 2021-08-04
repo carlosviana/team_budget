@@ -19,6 +19,7 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(Middleware.Authorize, :user)
       resolve(&Resolvers.UserResolver.list_users/3)
     end
+
     @desc "Get list of all teams from an user"
     field :list_teams, list_of(:team) do
       middleware(Middleware.Authorize, :user)
@@ -34,6 +35,14 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(&build_payload/2)
     end
 
+    @desc "Send an invite"
+    field :send_invite, list_of(:invite) do
+      arg(:invites, non_null(list_of(:string)))
+      middleware(Middleware.Authorize, :user)
+      middleware(Middleware.SetATeam)
+      resolve(&Resolvers.InviteResolver.send_invite/3)
+    end
+
     @desc "Login with a User and then return a JWT token"
     field :login, :login_payload do
       arg(:user, non_null(:login_input))
@@ -43,8 +52,10 @@ defmodule TeamBudgedGraphql.Schema do
   end
 
   def context(context) do
-    loader = Dataloader.new()
-    |> Dataloader.add_source(Team, Team.data())
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(Team, Team.data())
+
     Map.put(context, :loader, loader)
   end
 
