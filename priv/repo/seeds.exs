@@ -8,7 +8,22 @@ alias TeamBudged.{Accounts.Data.User, Members.Data.Member, Repo}
     password: "123123",
     password_confirmation: "123123",
     teams: [
-      %{name: "elxpro graphql", description: "learn graphql"}
+      %{
+        name: "elxpro graphql",
+        description: "learn graphql",
+        projects: [
+          %{
+            name: "graphql api finance",
+            description: "api to show assets dunring the day",
+            budget: Decimal.new("300.000")
+          },
+          %{
+            name: "liveview finance",
+            description: "show assets dunring the day",
+            budget: Decimal.new("323.000")
+          }
+        ]
+      }
     ]
   }
   |> User.changeset()

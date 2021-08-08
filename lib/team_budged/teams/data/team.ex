@@ -5,6 +5,7 @@ defmodule TeamBudged.Teams.Data.Team do
   alias TeamBudged.Accounts.Data.User
   alias TeamBudged.Utils.CreateSlug
   alias TeamBudged.Members.Member
+  alias TeamBudged.Projects.Data.Project
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -14,6 +15,7 @@ defmodule TeamBudged.Teams.Data.Team do
     field :slug, :string
 
     belongs_to :user, User
+    has_many :projects, Project
     many_to_many :members, User, join_through: Member, on_replace: :delete
 
     timestamps()
@@ -35,5 +37,6 @@ defmodule TeamBudged.Teams.Data.Team do
     |> CreateSlug.perform(:name)
     |> unique_constraint(:name)
     |> unique_constraint(:slug)
+    |> cast_assoc(:projects, with: &Project.changeset/2)
   end
 end
