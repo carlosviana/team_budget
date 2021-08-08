@@ -12,6 +12,7 @@ defmodule TeamBudgedGraphql.Schema do
 
   payload_object(:user_payload, :user)
   payload_object(:login_payload, :session)
+  payload_object(:project_payload, :project)
 
   query do
     @desc "Get list of all users"
@@ -41,6 +42,14 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(Middleware.Authorize, :user)
       middleware(Middleware.SetATeam)
       resolve(&Resolvers.InviteResolver.send_invite/3)
+    end
+
+    @desc "Create a project"
+    field :create_project, :project_payload do
+      arg(:project, non_null(:project_input))
+      middleware(Middleware.Authorize, :user)
+      middleware(Middleware.SetATeam)
+      resolve(&Resolvers.ProjectResolver.create_project/3)
     end
 
     @desc "Login with a User and then return a JWT token"

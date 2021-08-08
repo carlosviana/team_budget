@@ -10,6 +10,11 @@ defmodule TeamBudgedGraphql.Types.Team do
     field :description, :string
     field :slug, :string
     field :user_id, :string
+    field :total_budget, :string
+
+    field :projects, list_of(:project) do
+      resolve(dataloader(Team))
+    end
 
     field :user, :user do
       resolve(dataloader(Team))

@@ -4,7 +4,7 @@ defmodule TeamBudged.Teams.Data.Team do
 
   alias TeamBudged.Accounts.Data.User
   alias TeamBudged.Utils.CreateSlug
-  alias TeamBudged.Members.Member
+  alias TeamBudged.Members.Data.Member
   alias TeamBudged.Projects.Data.Project
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -13,6 +13,7 @@ defmodule TeamBudged.Teams.Data.Team do
     field :description, :string
     field :name, :string
     field :slug, :string
+    field :total_budget, :decimal, virtual: true, default: Decimal.new("0")
 
     belongs_to :user, User
     has_many :projects, Project
