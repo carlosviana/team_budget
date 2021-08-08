@@ -2,13 +2,16 @@ defmodule TeamBudged.Invites.Data.Invite do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias TeamBudged.Accounts.Data.User
+  alias TeamBudged.Teams.Data.Team
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "invites" do
     field :email, :string
     field :email_has_account, :boolean, default: false
-    field :user_id, :binary_id
-    field :team_id, :binary_id
+    belongs_to :user, User
+    belongs_to :team, Team
 
     timestamps()
   end
