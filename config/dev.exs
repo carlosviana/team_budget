@@ -14,31 +14,13 @@ config :team_budged, TeamBudged.Mailer,
   server: System.get_env("SMTP_HOST"),
   hostname: System.get_env("SMTP_HOST"),
   port: System.get_env("SMTP_PORT"),
-  # or {:system, "SMTP_USERNAME"}
   username: System.get_env("SMTP_USER"),
-  # or {:system, "SMTP_PASSWORD"}
   password: System.get_env("SMTP_PASSWORD"),
-  # can be `:always` or `:never`
   tls: :if_available,
-  # or {:system, "ALLOWED_TLS_VERSIONS"} w/ comma seprated values (e.g. "tlsv1.1,tlsv1.2")
   allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
-  tls_log_level: :error,
-  # optional, can be `:verify_peer` or `:verify_none`
-  tls_verify: :verify_peer,
-  # optional, path to the ca truststore
-  tls_cacertfile: "/somewhere/on/disk",
-  # optional, DER-encoded trusted certificates
-  tls_cacerts: "…",
-  # optional, tls certificate chain depth
-  tls_depth: 3,
-  # optional, tls verification function
-  tls_verify_fun: {&:ssl_verify_hostname.verify_fun/3, check_hostname: "example.com"},
-  # can be `true`
   ssl: false,
   retries: 1,
-  # can be `true`
-  no_mx_lookups: false,
-  # can be `:always`. If your smtp relay requires authentication set it to `:always`.
+  no_mx_lookup: false,
   auth: :cram_md5
 
 # For development, we disable any cache and enable

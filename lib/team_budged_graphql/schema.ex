@@ -26,6 +26,13 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(Middleware.Authorize, :user)
       resolve(&Resolvers.TeamResolver.list_teams/3)
     end
+
+    @desc "list projects"
+    field :list_projects, list_of(:project) do
+      middleware(Middleware.Authorize, :user)
+      middleware(Middleware.SetATeam)
+      resolve(&Resolvers.ProjectResolver.list_projects/3)
+    end
   end
 
   mutation do
@@ -50,6 +57,24 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(Middleware.Authorize, :user)
       middleware(Middleware.SetATeam)
       resolve(&Resolvers.ProjectResolver.create_project/3)
+      middleware(&build_payload/2)
+    end
+
+    @desc "Update a project"
+    field :update_project, :project_payload do
+      arg(:project, non_null(:project_input))
+      arg(:id, non_null(:string))
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.ProjectResolver.update_project/3)
+      middleware(&build_payload/2)
+    end
+
+    @desc "Delete a project"
+    field :delete_project, :project_payload do
+      arg(:id, non_null(:string))
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.ProjectResolver.delete_project/3)
+      middleware(&build_payload/2)
     end
 
     @desc "Login with a User and then return a JWT token"

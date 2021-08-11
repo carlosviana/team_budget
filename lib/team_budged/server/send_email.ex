@@ -1,7 +1,7 @@
 defmodule TeamBudged.Invites.Server.SendEmail do
   import Bamboo.Email
 
-  alias Bamboo.Mailer
+  alias TeamBudged.Mailer
 
   def perform({:ok, invites}) do
     Enum.each(invites, &send_email/1)
