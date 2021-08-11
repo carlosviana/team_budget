@@ -6,7 +6,7 @@ defmodule TeamBudged.Roles do
   import Ecto.Query, warn: false
   alias TeamBudged.Repo
 
-  alias TeamBudged.Roles.Role
+  alias TeamBudged.Roles.Data.Role
 
   @doc """
   Returns the list of roles.

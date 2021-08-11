@@ -13,6 +13,7 @@ defmodule TeamBudgedGraphql.Schema do
   payload_object(:user_payload, :user)
   payload_object(:login_payload, :session)
   payload_object(:project_payload, :project)
+  payload_object(:role_payload, :role)
 
   query do
     @desc "Get list of all users"
@@ -32,6 +33,12 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(Middleware.Authorize, :user)
       middleware(Middleware.SetATeam)
       resolve(&Resolvers.ProjectResolver.list_projects/3)
+    end
+
+    @desc "list roles"
+    field :list_roles, list_of(:role) do
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.RoleResolver.list_roles/3)
     end
   end
 
@@ -57,6 +64,14 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(Middleware.Authorize, :user)
       middleware(Middleware.SetATeam)
       resolve(&Resolvers.ProjectResolver.create_project/3)
+      middleware(&build_payload/2)
+    end
+
+    @desc "Create a role"
+    field :create_role, :role_payload do
+      arg(:role, non_null(:role_input))
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.RoleResolver.create_role/3)
       middleware(&build_payload/2)
     end
 
