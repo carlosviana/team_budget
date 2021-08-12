@@ -67,14 +67,6 @@ defmodule TeamBudgedGraphql.Schema do
       middleware(&build_payload/2)
     end
 
-    @desc "Create a role"
-    field :create_role, :role_payload do
-      arg(:role, non_null(:role_input))
-      middleware(Middleware.Authorize, :user)
-      resolve(&Resolvers.RoleResolver.create_role/3)
-      middleware(&build_payload/2)
-    end
-
     @desc "Update a project"
     field :update_project, :project_payload do
       arg(:project, non_null(:project_input))
@@ -89,6 +81,31 @@ defmodule TeamBudgedGraphql.Schema do
       arg(:id, non_null(:string))
       middleware(Middleware.Authorize, :user)
       resolve(&Resolvers.ProjectResolver.delete_project/3)
+      middleware(&build_payload/2)
+    end
+
+    @desc "Create a role"
+    field :create_role, :role_payload do
+      arg(:role, non_null(:role_input))
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.RoleResolver.create_role/3)
+      middleware(&build_payload/2)
+    end
+
+    @desc "Update a role"
+    field :update_role, :role_payload do
+      arg(:role, non_null(:role_input))
+      arg(:id, non_null(:string))
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.RoleResolver.update_role/3)
+      middleware(&build_payload/2)
+    end
+
+    @desc "Delete a role"
+    field :delete_role, :role_payload do
+      arg(:id, non_null(:string))
+      middleware(Middleware.Authorize, :user)
+      resolve(&Resolvers.RoleResolver.delete_role/3)
       middleware(&build_payload/2)
     end
 

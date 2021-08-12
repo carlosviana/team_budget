@@ -19,7 +19,7 @@ defmodule TeamBudged.Roles.Data.Role do
     role
     |> cast(attrs, [:name, :slug, :description])
     |> validate_required([:name, :description])
-    |> CreateSlug.perform(:name)
+    |> CreateSlug.perform(:slug)
     |> unique_constraint(:name)
     |> unique_constraint(:slug)
   end

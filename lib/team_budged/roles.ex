@@ -67,8 +67,12 @@ defmodule TeamBudged.Roles do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_role(%Role{} = role, attrs) do
-    role
+  def update_role(attrs, id) do
+    IO.inspect(id)
+    IO.inspect(attrs)
+
+    id
+    |> get_role!()
     |> Role.changeset(attrs)
     |> Repo.update()
   end
@@ -85,9 +89,14 @@ defmodule TeamBudged.Roles do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_role(%Role{} = role) do
-    Repo.delete(role)
+  def delete_role(id) do
+    id
+    |> get_role!()
+    |> delete?()
   end
+
+  defp delete?(nil), do: {:error, "There is no role with this id"}
+  defp delete?(role), do: Repo.delete(role)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking role changes.
