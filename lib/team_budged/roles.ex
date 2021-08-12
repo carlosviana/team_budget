@@ -68,9 +68,6 @@ defmodule TeamBudged.Roles do
 
   """
   def update_role(attrs, id) do
-    IO.inspect(id)
-    IO.inspect(attrs)
-
     id
     |> get_role!()
     |> Role.changeset(attrs)
