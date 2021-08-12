@@ -6,7 +6,7 @@ defmodule TeamBudged.Permissions do
   import Ecto.Query, warn: false
   alias TeamBudged.Repo
 
-  alias TeamBudged.Permissions.Permission
+  alias TeamBudged.Permissions.Data.Permission
 
   @doc """
   Returns the list of permissions.
@@ -67,8 +67,9 @@ defmodule TeamBudged.Permissions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_permission(%Permission{} = permission, attrs) do
-    permission
+  def update_permission(attrs, id) do
+    id
+    |> get_permission!()
     |> Permission.changeset(attrs)
     |> Repo.update()
   end
@@ -85,9 +86,14 @@ defmodule TeamBudged.Permissions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_permission(%Permission{} = permission) do
-    Repo.delete(permission)
+  def delete_permission(id) do
+    id
+    |> get_permission!()
+    |> delete?()
   end
+
+  defp delete?(nil), do: {:error, "There is no permission with this id"}
+  defp delete?(permission), do: Repo.delete(permission)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking permission changes.

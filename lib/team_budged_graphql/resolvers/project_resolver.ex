@@ -13,6 +13,7 @@ defmodule TeamBudgedGraphql.Resolvers.ProjectResolver do
     Projects.update_project(project, id)
   end
 
+  @spec delete_project(any, %{:id => any, optional(any) => any}, any) :: any
   def delete_project(_parent, %{id: id}, _) do
     Projects.delete_project(id)
   end

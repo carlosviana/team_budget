@@ -3,6 +3,7 @@ defmodule TeamBudgedGraphql.Types do
   alias TeamBudgedGraphql.Types
 
   import_types(Types.Invite)
+  import_types(Types.Permission)
   import_types(Types.Project)
   import_types(Types.Role)
   import_types(Types.Session)
